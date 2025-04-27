@@ -29,16 +29,16 @@ const router = useRouter();
 const items = ref([
     {
         label: 'Devices',
-        icon: 'pi pi-home',
+        icon: 'pi pi-desktop',
         items: [
             {
                 label: 'Devices',
-                icon: 'pi pi-bolt',
+                icon: 'pi pi-desktop',
                 route: '/devicecollection'
             },
             {
                 label: 'Device Collections',
-                icon: 'pi pi-server',
+                icon: 'pi pi-objects-column',
                 route: '/devicecollections'
             }]
     },
@@ -48,39 +48,39 @@ const items = ref([
         items: [
             {
                 label: 'Applications',
-                icon: 'pi pi-bolt'
+                icon: 'pi pi-gift'
             },
             {
                 label: 'Packages',
-                icon: 'pi pi-server'
+                icon: 'pi pi-bolt'
             },
             {
                 label: 'Updates',
-                icon: 'pi pi-server'
+                icon: 'pi pi-wrench'
             },
             {
                 label: 'Task Sequences',
-                icon: 'pi pi-server'
+                icon: 'pi pi-list'
             }]
     },
     {
         label: 'Reporting',
-        icon: 'pi pi-search',
+        icon: 'pi pi-gauge',
         items: [
             {
                 label: 'Deployments',
-                icon: 'pi pi-bolt'
+                icon: 'pi pi-download'
             },
             {
                 label: 'Custom Reports',
-                icon: 'pi pi-server'
+                icon: 'pi pi-crown'
             }
             
         ]
     },
     {
         label: 'About',
-        icon: 'pi pi-envelope'
+        icon: 'pi pi-megaphone'
     }
 ]);
 
