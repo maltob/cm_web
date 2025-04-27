@@ -8,6 +8,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Row from 'primevue/row';
 import IconDeviceCollection from '@/components/icons/IconDeviceCollection.vue';
+import DeviceClientNotificationStatus from '@/components/devices/DeviceClientNotificationStatus.vue';
 import { CMRestService } from '@/service/CMRestService';
 
 onMounted(() => {
@@ -38,12 +39,15 @@ const deviceCollectionMembers = ref();
 <template>
   <h1>Members of {{ collectionID }}</h1>
   <DataTable :value="deviceCollectionMembers" stripedRows tableStyle="min-width: 50rem">
-    <Column header="I"><IconDeviceCollection /></Column>
+    <Column header="Online"><template  #body="slotProps">
+        <DeviceClientNotificationStatus :resourceID=slotProps.data.ResourceID :isClient=slotProps.data.IsClient />
+    </template></Column>
     <Column field="Name" header="Name"></Column>
     <Column field="Domain" header="Domain"></Column>
     <Column field="CollectionID" header="Collection ID"></Column>
     <Column field="IsActive" header="Active"></Column>
     <Column field="IsVirtualMachine" header="IsVirtualMachine"></Column>
     <Column field="IsClient" header="IsClient"></Column>
+    <Column field="ResourceID" header="ResourceID"></Column>
 </DataTable>
 </template>

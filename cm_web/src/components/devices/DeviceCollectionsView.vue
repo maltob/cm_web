@@ -9,6 +9,10 @@ import Column from 'primevue/column';
 import Row from 'primevue/row';
 import IconDeviceCollection from '@/components/icons/IconDeviceCollection.vue';
 import { CMRestService } from '@/service/CMRestService';
+import Button from 'primevue/button';
+import { useToast } from 'primevue/usetoast';
+import Toast from 'primevue/toast';
+const toast = useToast();
 
 onMounted(() => {
     let filter = ''
@@ -30,9 +34,23 @@ watch(
 )
 
 const deviceCollections = ref();
+
+
+const  refreshCollection = async (collectionID: string) => {
+  if(await CMRestService.refreshDeviceCollection(collectionID)) {
+    console.log("Ref")
+    toast.add({ severity: 'info', summary: 'Membership refresh queued', detail: `Membership refresh for ${collectionID} is queued`, life: 3000 });
+  }else{
+    console.log("Err")
+
+    toast.add({ severity: 'warning', summary: 'Failed to refresh membership', detail: `Membership refresh for ${collectionID} failed.`, life: 3000 });
+  } 
+  
+}
 </script>
 
 <template>
+  <Toast />
     <IconDeviceCollection />
   <DataTable :value="deviceCollections" stripedRows tableStyle="min-width: 50rem">
     <Column header="I"><IconDeviceCollection /></Column>
@@ -45,5 +63,10 @@ const deviceCollections = ref();
     <Column field="CollectionID" header="Collection ID"></Column>
     <Column field="Comment" header="Comment"></Column>
     <Column field="ObjectPath" header="Folder"></Column>
+    <Column header="Actions">
+      <template #body="slotProps">
+        <Button icon="pi pi-refresh" @click="refreshCollection(slotProps.data.CollectionID)" aria-label="Refresh Device Collection Membership" />
+      </template>
+    </Column>
 </DataTable>
 </template>

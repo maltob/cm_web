@@ -6,8 +6,8 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import DeviceCollectionsView from '@/components/devices/DeviceCollectionsView.vue'
 import DevicesView from './components/devices/DevicesView.vue';
-
-
+import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 import { createWebHashHistory, createRouter } from 'vue-router'
 
 const routes = [
@@ -30,5 +30,7 @@ app.use(PrimeVue, {
         preset: Aura
     }
 });
+
+app.use(ToastService);
 
 app.mount('#app')
