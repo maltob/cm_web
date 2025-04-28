@@ -14,6 +14,7 @@ import SoftwareInstalledPrograms from './deviceinformation/SystemInstalledProgra
 import SystemHardwareInfo from './deviceinformation/SystemHardwareInfo.vue';
 import SystemInstalledQuickFixes from './deviceinformation/SystemInstalledQuickFixes.vue';
 import SystemInstalledFeatures from './deviceinformation/SystemInstalledFeatures.vue';
+import SystemLastConsoleUsers from './deviceinformation/SystemLastConsoleUsers.vue';
 
 
 onMounted(() => {
@@ -40,13 +41,11 @@ watch(
   <Toast />
   <SystemInfo :resourceID=props.resourceID ></SystemInfo>
   <OperatingSystemInfo :resourceID=props.resourceID ></OperatingSystemInfo>
+  <SystemLastConsoleUsers :resourceID=props.resourceID></SystemLastConsoleUsers>
   <SoftwareInstalledPrograms :resourceID=props.resourceID ></SoftwareInstalledPrograms>
   <SystemInstalledQuickFixes :resourceID=props.resourceID></SystemInstalledQuickFixes>
   <SystemInstalledFeatures :resourceID=props.resourceID></SystemInstalledFeatures>
   <SystemHardwareInfo :resourceID=props.resourceID></SystemHardwareInfo>
 
-  <!--
-   Messages?
-   Deployments?
-  -->
+
 </template>
