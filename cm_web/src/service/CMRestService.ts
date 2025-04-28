@@ -53,6 +53,22 @@ export const CMRestService = {
     async getDeviceNetworkAdapterConfiguration(resourceID: Number) {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_NETWORK_ADAPTER_CONFIGURATION?$filter=ResourceID%20eq%20${resourceID}`)
     },
+    async getDeviceNetworkAdapterConfigurationForAdapter(resourceID: Number, MACAddress: string) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_NETWORK_ADAPTER_CONFIGURATION?$filter=ResourceID%20eq%20${resourceID} and MACAddress eq '${MACAddress}'`)
+    },
+
+    async getDeviceVideoController(resourceID: Number) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_VIDEO_CONTROLLER?$filter=ResourceID%20eq%20${resourceID}`)
+    },
+
+    async getDeviceQuickFixEngineering(resourceID: Number) {
+        // Note - This class isn't enabled by default so it likely returns empty
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_QUICK_FIX_ENGINEERING?$filter=ResourceID%20eq%20${resourceID}`)
+    },
+
+    async getDeviceOptionalFeature(resourceID: Number) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_OPTIONAL_FEATURE?$filter=ResourceID%20eq%20${resourceID}`)
+    },
 
     async getDeviceBIOS(resourceID: Number) {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_PC_BIOS?$filter=ResourceID%20eq%20${resourceID}`)

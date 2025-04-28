@@ -41,7 +41,7 @@ const loadedClasses = ref(0)
 </script>
 <template >
 <Panel header='Installed Programs' toggleable v-if="loadedClasses == 2">
-    <DataTable :value="programs" stripedRows tableStyle="min-width: 50rem">
+    <DataTable :value="programs" stripedRows tableStyle="min-width: 50rem" sortField="DisplayName" :sortOrder="1" paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
         <Column field="DisplayName" header="Name">
         <template #body="slotProps">
             <span v-if="slotProps.data.DisplayName">{{ slotProps.data.DisplayName }}</span>
