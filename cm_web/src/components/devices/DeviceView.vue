@@ -46,9 +46,6 @@ watch(
   <SystemHardwareInfo :resourceID=props.resourceID></SystemHardwareInfo>
 
   <!--
-   Quick Fix Engineering (Updates)
-   Features
-   Hardware
    Messages?
    Deployments?
   -->

@@ -70,6 +70,10 @@ export const CMRestService = {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_OPTIONAL_FEATURE?$filter=ResourceID%20eq%20${resourceID}`)
     },
 
+    async getDeviceConsoleUsers(resourceID: Number) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_SYSTEM_CONSOLE_USER?$filter=ResourceID%20eq%20${resourceID}`)
+    },
+
     async getDeviceBIOS(resourceID: Number) {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_PC_BIOS?$filter=ResourceID%20eq%20${resourceID}`)
     },
