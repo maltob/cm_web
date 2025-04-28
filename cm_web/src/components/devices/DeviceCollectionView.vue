@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  collectionID: String | null
+  collectionID: String 
 })
 import { ref, onMounted, watch  } from 'vue';
 import { useRoute } from 'vue-router'
@@ -42,7 +42,13 @@ const deviceCollectionMembers = ref();
     <Column header="Online"><template  #body="slotProps">
         <DeviceClientNotificationStatus :resourceID=slotProps.data.ResourceID :isClient=slotProps.data.IsClient />
     </template></Column>
-    <Column field="Name" header="Name"></Column>
+    <Column header="Name">
+    <template #body="slotProps">
+
+      <router-link :to="{ name: 'device', params: { resourceID: slotProps.data.ResourceID } }" v-if="slotProps.data.IsClient">{{ slotProps.data.Name }}</router-link>
+      <span v-else>{{ slotProps.data.Name }}</span>
+    </template>
+  </Column>
     <Column field="Domain" header="Domain"></Column>
     <Column field="CollectionID" header="Collection ID"></Column>
     <Column field="IsActive" header="Active"></Column>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  filter: String | null
+  filter: String
 })
 import { ref, onMounted, watch  } from 'vue';
 import { useRoute } from 'vue-router'
@@ -28,7 +28,13 @@ const route = useRoute()
 watch(
   () => route.params.filter,
   (newFilter, oldFilter) => {
-    CMRestService.getDeviceCollections(newFilter).then((data) => (data.json().then(v => (deviceCollections.value = v.value))));
+    let nFilter = '';
+    if( newFilter instanceof Array) {
+      nFilter = newFilter[0];
+    }else{
+      nFilter= newFilter;
+    }
+    CMRestService.getDeviceCollections(nFilter).then((data) => (data.json().then(v => (deviceCollections.value = v.value))));
 
   }
 )
@@ -49,7 +55,7 @@ const  refreshCollection = async (collectionID: string) => {
 }
 </script>
 
-<template>
+<template >
   <Toast />
     <IconDeviceCollection />
   <DataTable :value="deviceCollections" stripedRows tableStyle="min-width: 50rem">
