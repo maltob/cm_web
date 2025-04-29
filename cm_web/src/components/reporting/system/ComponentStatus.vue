@@ -41,7 +41,6 @@ onMounted(() => {
 const componentStatus = ref();
 
 const siteComponentRowStyle = (data: any) => {
-  console.log(data.Errors)
   if (data.Errors > 0) {
         return  '!bg-pink-100' ;
     }
