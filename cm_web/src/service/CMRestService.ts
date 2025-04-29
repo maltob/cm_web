@@ -94,6 +94,18 @@ export const CMRestService = {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_G_System_PROCESSOR?$filter=ResourceID%20eq%20${resourceID}`)
     },
 
+    async getSiteSystemState( availabilityState?: Number) {
+        if(availabilityState) {
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_SiteSystemSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_SiteSystemSummarizer`)
+        }   
+    },
+
+    async getAvailableComponentSummaries(availabilityState: Number = 0) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_ComponentSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
+    },
+
 
     async refreshDeviceCollection(collectionID:string) {
         return ((await CMRestService.postCMRestEndpoint(`wmi/SMS_Collection('${collectionID}')/AdminService.RequestRefresh`,undefined)).status == 201)

@@ -72,6 +72,11 @@ const items = ref([
                 icon: 'pi pi-download'
             },
             {
+                label: 'System Status',
+                icon: 'pi pi-building',
+                route: '/reporting/system'
+            },
+            {
                 label: 'Custom Reports',
                 icon: 'pi pi-crown'
             }
