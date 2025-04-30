@@ -106,9 +106,14 @@ export const CMRestService = {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_ComponentSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
     },
 
+    async getDeploymentSummaries() {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary`)
+    },
+
 
     async refreshDeviceCollection(collectionID:string) {
         return ((await CMRestService.postCMRestEndpoint(`wmi/SMS_Collection('${collectionID}')/AdminService.RequestRefresh`,undefined)).status == 201)
     },
+    
 
 }

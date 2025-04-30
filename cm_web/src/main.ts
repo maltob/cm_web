@@ -11,6 +11,7 @@ import Toast from 'primevue/toast';
 import { createWebHashHistory, createRouter } from 'vue-router'
 import DeviceView from './components/devices/DeviceView.vue';
 import ConfigMgrSystemStatus from './components/reporting/ConfigMgrSystemStatus.vue';
+import Deployments from './components/reporting/Deployments.vue';
 
 const routes = [
   { path: '/', component: DeviceCollectionsView, props: true  },
@@ -18,6 +19,7 @@ const routes = [
   { path: '/devicecollection/:collectionID?', component: DeviceCollectionView, name:'devicecollection',props: true  },
   { path: '/device/:resourceID', component: DeviceView, name:'device',props: true  },
   { path: '/reporting/system', component: ConfigMgrSystemStatus, name:'systeminfo' },
+  { path: '/reporting/deployments', component: Deployments, name:'deployments' },
 ]
 
 const router = createRouter({
