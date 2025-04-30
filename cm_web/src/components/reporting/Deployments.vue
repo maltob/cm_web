@@ -13,7 +13,23 @@ onMounted(() => {
 
 });
 
+
+const deploymentRowStyle = (data: any) => {
+  if (data.NumberTargeted > 0 && data.NumberSuccess == data.NumberTargeted) {
+        return  '!bg-green-100' ;
+    }
+
+    if (data.NumberTargeted > 0 && data.NumberErrors == data.NumberTargeted) {
+        return  '!bg-red-100' ;
+    }
+    
+};
+
+
 const deployments = ref();
+
+
+
 </script>
 
 
@@ -23,7 +39,7 @@ const deployments = ref();
 <div v-if="deployments">
   <h1 class="text-xl font-bold pt-4">Deployments</h1>
 
-<DataTable :value="deployments"  stripedRows tableStyle="min-width: 50rem">
+<DataTable :value="deployments"  stripedRows tableStyle="min-width: 50rem" :rowClass="deploymentRowStyle">
     <Column field="ApplicationName" header="Application"> </Column>
     <Column field="DesiredConfigType" header="DesiredConfigType">
         <template #body="slotProps">
