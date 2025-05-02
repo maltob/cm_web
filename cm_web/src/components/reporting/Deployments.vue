@@ -61,11 +61,41 @@ const deployments = ref();
             <span v-if="slotProps.data.FeatureType == 11">Configuration Policy</span>
       </template>
     </Column>
-    <Column field="NumberErrors" header="Errors"></Column>
-    <Column field="NumberInProgress" header="Progress"></Column>
-    <Column field="NumberOther" header="Other Status"></Column>
-    <Column field="NumberSuccess" header="Success"></Column>
-    <Column field="NumberTargeted" header="Total"></Column>
+    <Column field="NumberErrors" header="Errors">
+      <template #body="slotProps">
+      <router-link class="underline" :to="{ name: 'deploymentWithStatusType', params: { assignmentID: slotProps.data.AssignmentID, appStatusType: 5 } }" v-if="slotProps.data.FeatureType == 1">{{ slotProps.data.NumberErrors }}</router-link>
+      <span v-else>{{ slotProps.data.NumberErrors }}</span>
+    </template>
+    </Column>
+    <Column field="NumberInProgress" header="Progress">
+      <template #body="slotProps">
+      <router-link class="underline" :to="{ name: 'deploymentWithStatusType', params: { assignmentID: slotProps.data.AssignmentID, appStatusType: 2 } }" v-if="slotProps.data.FeatureType == 1">{{ slotProps.data.NumberInProgress }}</router-link>
+      <span v-else>{{ slotProps.data.NumberInProgress }}</span>
+
+    </template>
+    </Column>
+    <Column field="NumberOther" header="Other Status">
+      <template #body="slotProps">
+      <router-link class="underline" :to="{ name: 'deploymentWithStatusType', params: { assignmentID: slotProps.data.AssignmentID, appStatusType: 4 } }" v-if="slotProps.data.FeatureType == 1">{{ slotProps.data.NumberOther }}</router-link>
+      <span v-else>{{ slotProps.data.NumberOther }}</span>
+
+    </template>
+  </Column>
+    <Column field="NumberSuccess" header="Success">
+      <template #body="slotProps">
+      <router-link class="underline" :to="{ name: 'deploymentWithStatusType', params: { assignmentID: slotProps.data.AssignmentID, appStatusType: 1 } }" v-if="slotProps.data.FeatureType == 1">{{ slotProps.data.NumberSuccess }}</router-link>
+      <span v-else>{{ slotProps.data.NumberSuccess }}</span>
+
+    </template>
+    </Column>
+    <Column field="NumberTargeted" header="Total">
+    <template #body="slotProps">
+      <router-link class="underline" :to="{ name: 'deployment', params: { assignmentID: slotProps.data.AssignmentID } }" v-if="slotProps.data.FeatureType == 1">{{ slotProps.data.NumberTargeted }}</router-link>
+      <router-link class="underline" :to="{ name: 'sumdeployment', params: { assignmentID: slotProps.data.AssignmentID } }" v-else-if="slotProps.data.FeatureType == 5">{{ slotProps.data.NumberTargeted }}</router-link>
+      <span v-else>{{ slotProps.data.NumberTargeted }}</span>
+
+    </template>
+  </Column>
     <Column header="SummarizationStatus">
         <template #body="slotProps">
          <DeploymentStatusChart :errors="slotProps.data.NumberErrors" :inprogress="slotProps.data.NumberInProgress" :other="slotProps.data.NumberOther" :success="slotProps.data.NumberSuccess" :unknown="slotProps.data.NumberUnknown"></DeploymentStatusChart>

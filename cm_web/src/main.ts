@@ -12,6 +12,8 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 import DeviceView from './components/devices/DeviceView.vue';
 import ConfigMgrSystemStatus from './components/reporting/ConfigMgrSystemStatus.vue';
 import Deployments from './components/reporting/Deployments.vue';
+import DeploymentDetails from './components/reporting/deployments/DeploymentDetails.vue';
+import SUMDeploymentDetails from './components/reporting/deployments/SUMDeploymentDetails.vue';
 
 const routes = [
   { path: '/', component: DeviceCollectionsView, props: true  },
@@ -20,6 +22,9 @@ const routes = [
   { path: '/device/:resourceID', component: DeviceView, name:'device',props: true  },
   { path: '/reporting/system', component: ConfigMgrSystemStatus, name:'systeminfo' },
   { path: '/reporting/deployments', component: Deployments, name:'deployments' },
+  { path: '/reporting/deployment/:assignmentID', component: DeploymentDetails, name:'deployment',props: true  },
+  { path: '/reporting/deploymentsum/:assignmentID', component: SUMDeploymentDetails, name:'sumdeployment',props: true  },
+  { path: '/reporting/deployment/:assignmentID/:appStatusType', component: DeploymentDetails, name:'deploymentWithStatusType',props: true  },
 ]
 
 const router = createRouter({
