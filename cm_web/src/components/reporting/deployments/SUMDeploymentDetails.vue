@@ -44,7 +44,7 @@ const filters = ref({
 const appStatusTypeLookup = ["All","Success 🟩","In Progress 🟨","Requirements Not Met 🟦","Unknown ❔","Error 🟥"]
 const deploymentDetails = ref();
 const appStatusTypeStr = ref();
-const statuses = ref([1,2,3,4,5]);
+const statuses = ref([1,2,4,5]);
 </script>
 
 <template>
