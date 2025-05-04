@@ -69,9 +69,7 @@ const statuses = ref([1,2,4,5]);
         <template #filter="{ filterModel, filterCallback }">
         <Select v-model="filterModel.value" @change="filterCallback()" :options="statuses" placeholder="Select One" style="min-width: 12rem" :showClear="true" filterField="StatusType">
                     <template #option="slotProps">
-                        <Tag :value="slotProps.option" >
                             {{appStatusTypeLookup[slotProps.option]}}
-                        </Tag>
                     </template>
                     <template #value="slotProps">
                         <div v-if="slotProps.value" class="flex items-center">
