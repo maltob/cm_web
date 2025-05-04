@@ -69,7 +69,8 @@ const items = ref([
         items: [
             {
                 label: 'Deployments',
-                icon: 'pi pi-download'
+                icon: 'pi pi-download',
+                route: '/reporting/deployments'
             },
             {
                 label: 'System Status',

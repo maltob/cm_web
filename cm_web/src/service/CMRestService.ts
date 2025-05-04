@@ -106,9 +106,29 @@ export const CMRestService = {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_ComponentSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
     },
 
+    async getDeploymentSummaries() {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary`)
+    },
 
+    async getDeploymentDetails(assignmentID: Number, appStatusType?:Number) {
+        if(appStatusType) {
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_AppDeploymentAssetDetails?$filter=AssignmentID%20eq%20${assignmentID} and AppStatusType eq ${appStatusType}`)
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_AppDeploymentAssetDetails?$filter=AssignmentID%20eq%20${assignmentID}`)
+        }
+        
+    },
+    async getSUMDeploymentDetails(assignmentID: Number, statusType?:Number) {
+        if(statusType) {
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_SUMDeploymentAssetDetails?$filter=AssignmentID%20eq%20${assignmentID} and StatusType eq ${statusType}`)
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_SUMDeploymentAssetDetails?$filter=AssignmentID%20eq%20${assignmentID}`)
+        }
+        
+    },
     async refreshDeviceCollection(collectionID:string) {
         return ((await CMRestService.postCMRestEndpoint(`wmi/SMS_Collection('${collectionID}')/AdminService.RequestRefresh`,undefined)).status == 201)
     },
+    
 
 }
