@@ -6,7 +6,6 @@ import { DataTable, Column } from 'primevue';
 import Tag from 'primevue/tag';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
-
 import { FilterMatchMode } from '@primevue/core/api';
 
 const props = defineProps({

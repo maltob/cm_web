@@ -3,6 +3,12 @@ import { CMRestService } from '@/service/CMRestService';
 import { onMounted, ref } from 'vue';
 import { DataTable, Column } from 'primevue';
 
+
+import Tag from 'primevue/tag';
+import InputText from 'primevue/inputtext';
+import Select from 'primevue/select';
+import { FilterMatchMode } from '@primevue/core/api';
+
 const props = defineProps({
     assignmentID: Number,
     appStatusType: Number
@@ -26,9 +32,18 @@ onMounted(() => {
 
 
 });
+
+const filters = ref({
+    AppStatusType: { value: null, matchMode: FilterMatchMode.EQUALS },
+    MachineName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    MachineID: { value: null, matchMode: FilterMatchMode.CONTAINS }
+});
+
+
 const appStatusTypeLookup = ["All","Success 🟩","In Progress 🟨","Requirements Not Met 🟦","Unknown ❔","Error 🟥"]
 const deploymentDetails = ref();
 const appStatusTypeStr = ref();
+const statuses = ref([1,2,3,4,5]);
 </script>
 
 <template>
@@ -36,13 +51,38 @@ const appStatusTypeStr = ref();
     
     <h1 class="text-xl font-bold pt-4">Deployment Details for <span class="font-extrabold">{{ deploymentDetails[0].AppName }}</span> to <router-link class="underline" :to="{ name: 'devicecollection', params: { collectionID: deploymentDetails[0].CollectionID } }">{{ deploymentDetails[0].CollectionName }}</router-link><span v-if="props.appStatusType"> with a status of {{ appStatusTypeStr }}</span></h1>
 
-    <DataTable :value="deploymentDetails" stripedRows tableStyle="min-width: 50rem">
-        <Column field="MachineName" header="MachineName"></Column>
-        <Column field="MachineID" header="MachineID"></Column>
+    <DataTable :value="deploymentDetails" stripedRows tableStyle="min-width: 50rem" v-model:filters="filters" filterDisplay="row">
+        <Column field="MachineName" header="MachineName">
+            <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" placeholder="Search by device name" />
+                </template>
+        </Column>
+        <Column field="MachineID" header="MachineID">
+            <template #filter="{ filterModel, filterCallback }">
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" placeholder="Search by device name" />
+                </template>
+        </Column>
         <Column field="AppStatusType" header="AppStatusType">
        <template #body="slotProps">
         {{appStatusTypeLookup[slotProps.data.AppStatusType]}}
-       </template> 
+       </template>
+       <template #filter="{ filterModel, filterCallback }">
+        <Select v-model="filterModel.value" @change="filterCallback()" :options="statuses" placeholder="Select One" style="min-width: 12rem" :showClear="true" filterField="StatusType">
+                    <template #option="slotProps">
+                        <Tag :value="slotProps.option" >
+                            {{appStatusTypeLookup[slotProps.option]}}
+                        </Tag>
+                    </template>
+                    <template #value="slotProps">
+                        <div v-if="slotProps.value" class="flex items-center">
+                            {{appStatusTypeLookup[slotProps.value]}}
+                        </div>
+                        <div v-else>
+                            All
+                        </div>
+                    </template>
+                </Select>
+            </template>
         </Column>       
         <Column field="Technology" header="Technology"></Column>
         </DataTable>
