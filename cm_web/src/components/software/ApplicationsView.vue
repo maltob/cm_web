@@ -53,29 +53,36 @@ watch(
 )
 
 const applications = ref();
-
-
+const expandedRows = ref({});
 </script>
 
 <template >
   <Toast />
     <IconDeviceCollection />
-  <DataTable :value="applications" stripedRows tableStyle="min-width: 10rem"  v-model:filters="filters" filterDisplay="row">
+  <DataTable :value="applications" v-model:expandedRows="expandedRows" stripedRows tableStyle="min-width: 10rem"  v-model:filters="filters" filterDisplay="row">
     <template #header>
                 <div class="flex justify-end">
                         <InputText v-model="filters['global'].value" placeholder="Search" />
                 </div>
             </template>
-    <Column field="LocalizedDisplayName" header="Name">
-    <template #body="slotProps">
-      {{ slotProps.data.LocalizedDisplayName }} <span v-if="slotProps.data.IsExpired" area-label="Retired">🏖️</span>
-    </template></Column>
-    <Column field="NumberOfDeployments" header="Deployments"> </Column>
+            <Column expander style="width: 5rem" />
+    <Column field="LocalizedDisplayName" header="Name"></Column>
+    <Column field="NumberOfDeployments" header="Deployments"> 
+      <template #body="slotProps">
+       <span v-if="slotProps.data.IsExpired" area-label="Retired">🏖️</span>
+     <span v-else>{{ slotProps.data.NumberOfDeployments }}</span>
+    </template>
+    </Column>
     <Column field="NumberOfDevicesWithApp" header="Devices with App Installed" class="max-sm:hidden"></Column>
     <Column field="NumberOfDeploymentTypes" header="Deployment Types" class="max-lg:hidden"></Column>
     <Column field="LocalizedDescription" header="Description" class="max-lg:hidden"></Column>
     <Column field="ObjectPath" header="Folder"  class="max-lg:hidden"></Column>
     <Column field="CI_UniqueID" header="UniqueID" class="max-lg:hidden"></Column>
+    <template #expansion="slotProps">
+      <div><h3>Deployments of {{ slotProps.data.LocalizedDisplayName }}</h3>
 
+      </div>
+      
+      </template>
 </DataTable>
 </template>
