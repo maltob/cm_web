@@ -26,7 +26,7 @@ const routes = [
   { path: '/reporting/deployment/:assignmentID', component: DeploymentDetails, name:'deployment',props: true  },
   { path: '/reporting/deploymentsum/:assignmentID', component: SUMDeploymentDetails, name:'sumdeployment',props: true  },
   { path: '/reporting/deployment/:assignmentID/:appStatusType', component: DeploymentDetails, name:'deploymentWithStatusType',props: true  },
-  { path: '/software/applications', component: ApplicationsView, name:'applications' },
+  { path: '/software/applications/:filter?', component: ApplicationsView, name:'applications' },
 
 ]
 
