@@ -127,8 +127,13 @@ export const CMRestService = {
         
     },
 
-    async getApplicationLatest(filter: string, top=5000, skip = 0) {
+    async getApplicationLatest(filter?: string, top=5000, skip = 0) {
+        if(filter) {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_ApplicationLatest?$filter=contains(LocalizedDisplayName,%27${filter}%27)%20eq%20true&$skip=${skip}&$top=${top}&$orderby=LocalizedDisplayName`)
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_ApplicationLatest?$skip=${skip}&$top=${top}&$orderby=LocalizedDisplayName`)
+
+        }
     },
 
     async refreshDeviceCollection(collectionID:string) {

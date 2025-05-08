@@ -3,23 +3,35 @@ const props = defineProps({
   filter: String
 })
 import { ref, onMounted, watch  } from 'vue';
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import Row from 'primevue/row';
 import IconDeviceCollection from '@/components/icons/IconDeviceCollection.vue';
 import { CMRestService } from '@/service/CMRestService';
-import Button from 'primevue/button';
+import { FilterMatchMode } from '@primevue/core/api';
+import InputText from 'primevue/inputtext';
+import InputIcon from 'primevue/inputicon';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
+
+
+
+const router = useRouter();
+
 const toast = useToast();
+
+const filters = ref({
+  global: { value: '', matchMode: FilterMatchMode.CONTAINS },
+});
 
 onMounted(() => {
     let filter = ''
     if(props.filter) {
       filter = props.filter
     }
-    CMRestService.getApplicationLatest(filter).then((data) => (data.json().then(v => (applications.value = v.value))));
+    filters.value = {global: { value: filter, matchMode: FilterMatchMode.CONTAINS },}
+
+    CMRestService.getApplicationLatest().then((data) => (data.json().then(v => (applications.value = v.value))));
 
 
 });
@@ -34,7 +46,8 @@ watch(
     }else{
       nFilter= newFilter;
     }
-    CMRestService.getApplicationLatest(nFilter).then((data) => (data.json().then(v => (applications.value = v.value))));
+    filters.value = {global: { value: nFilter, matchMode: FilterMatchMode.CONTAINS },}
+    CMRestService.getApplicationLatest().then((data) => (data.json().then(v => (applications.value = v.value))));
 
   }
 )
@@ -42,13 +55,17 @@ watch(
 const applications = ref();
 
 
-
 </script>
 
 <template >
   <Toast />
     <IconDeviceCollection />
-  <DataTable :value="applications" stripedRows tableStyle="min-width: 10rem">
+  <DataTable :value="applications" stripedRows tableStyle="min-width: 10rem"  v-model:filters="filters" filterDisplay="row">
+    <template #header>
+                <div class="flex justify-end">
+                        <InputText v-model="filters['global'].value" placeholder="Search" />
+                </div>
+            </template>
     <Column field="LocalizedDisplayName" header="Name">
     <template #body="slotProps">
       {{ slotProps.data.LocalizedDisplayName }} <span v-if="slotProps.data.IsExpired" area-label="Retired">🏖️</span>
