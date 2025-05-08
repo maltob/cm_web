@@ -48,7 +48,8 @@ const items = ref([
         items: [
             {
                 label: 'Applications',
-                icon: 'pi pi-gift'
+                icon: 'pi pi-gift',
+                route: '/software/applications'
             },
             {
                 label: 'Packages',
