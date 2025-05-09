@@ -106,8 +106,14 @@ export const CMRestService = {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_ComponentSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
     },
 
-    async getDeploymentSummaries() {
-        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary`)
+    async getDeploymentSummaries(CI_ID?: Number) {
+        if(CI_ID) {
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary?$filter=CI_ID eq ${CI_ID}`)
+
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary`)
+
+        }
     },
 
     async getDeploymentDetails(assignmentID: Number, appStatusType?:Number) {
