@@ -6,7 +6,7 @@ import { ref, onMounted, watch  } from 'vue';
 import { CMRestService } from '@/service/CMRestService';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import DeploymentStatusChart from '../reporting/deployments/deploymentStatusChart.vue';
+import DeploymentStatusChart from '../../reporting/deployments/deploymentStatusChart.vue';
 onMounted(() => {
     
     CMRestService.getDeploymentSummaries(props.CI_ID).then((data) => (data.json().then(v => (deployments.value = v.value))));
