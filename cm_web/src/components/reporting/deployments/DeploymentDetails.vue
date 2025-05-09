@@ -51,13 +51,13 @@ const statuses = ref([1,2,3,4,5]);
     
     <h1 class="text-xl font-bold pt-4">Deployment Details for <span class="font-extrabold">{{ deploymentDetails[0].AppName }}</span> to <router-link class="underline" :to="{ name: 'devicecollection', params: { collectionID: deploymentDetails[0].CollectionID } }">{{ deploymentDetails[0].CollectionName }}</router-link><span v-if="props.appStatusType"> with a status of {{ appStatusTypeStr }}</span></h1>
 
-    <DataTable :value="deploymentDetails" stripedRows tableStyle="min-width: 50rem" v-model:filters="filters" filterDisplay="row">
+    <DataTable :value="deploymentDetails" stripedRows tableStyle="min-width: 10rem" v-model:filters="filters" filterDisplay="row">
         <Column field="MachineName" header="MachineName">
             <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" placeholder="Search by device name" />
                 </template>
         </Column>
-        <Column field="MachineID" header="MachineID">
+        <Column field="MachineID" header="MachineID" class="max-lg:hidden">
             <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" placeholder="Search by device name" />
                 </template>
@@ -82,7 +82,7 @@ const statuses = ref([1,2,3,4,5]);
                 </Select>
             </template>
         </Column>       
-        <Column field="Technology" header="Technology"></Column>
+        <Column field="Technology" header="Technology" class="max-lg:hidden"></Column>
         </DataTable>
 
     

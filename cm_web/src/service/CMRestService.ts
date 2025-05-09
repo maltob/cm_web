@@ -106,8 +106,14 @@ export const CMRestService = {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_ComponentSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
     },
 
-    async getDeploymentSummaries() {
-        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary`)
+    async getDeploymentSummaries(CI_ID?: Number) {
+        if(CI_ID) {
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary?$filter=CI_ID eq ${CI_ID}`)
+
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentSummary`)
+
+        }
     },
 
     async getDeploymentDetails(assignmentID: Number, appStatusType?:Number) {
@@ -126,9 +132,36 @@ export const CMRestService = {
         }
         
     },
+
+    async getApplicationLatest(filter?: string, top=5000, skip = 0) {
+        if(filter) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_ApplicationLatest?$filter=contains(LocalizedDisplayName,%27${filter}%27)%20eq%20true&$skip=${skip}&$top=${top}&$orderby=LocalizedDisplayName`)
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_ApplicationLatest?$skip=${skip}&$top=${top}&$orderby=LocalizedDisplayName`)
+
+        }
+    },
+
+    async getApplicationLatestDeploymentTypes(AppModelName: string, top=5000, skip = 0) {
+
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentType?$filter=AppModelName%20eq%20%27${AppModelName}%27%20and%20IsLatest%20eq%20true&$orderby=PriorityInLatestApp%20asc`)
+    },
+    // Getting the specific deployment type will load SDMPackageXML property
+    async getDeploymentType(CI_ID: Number) {
+
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentType(${CI_ID})`)
+    },
+    // Getting the specific application will load SDMPackageXML property
+    async getApplication(CI_ID: Number) {
+
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_Application(${CI_ID})`)
+    },
+
     async refreshDeviceCollection(collectionID:string) {
         return ((await CMRestService.postCMRestEndpoint(`wmi/SMS_Collection('${collectionID}')/AdminService.RequestRefresh`,undefined)).status == 201)
     },
+    
+  
     
 
 }
