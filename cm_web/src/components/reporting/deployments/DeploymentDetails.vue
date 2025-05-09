@@ -57,7 +57,7 @@ const statuses = ref([1,2,3,4,5]);
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" placeholder="Search by device name" />
                 </template>
         </Column>
-        <Column field="MachineID" header="MachineID">
+        <Column field="MachineID" header="MachineID" class="max-lg:hidden">
             <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" placeholder="Search by device name" />
                 </template>
@@ -82,7 +82,7 @@ const statuses = ref([1,2,3,4,5]);
                 </Select>
             </template>
         </Column>       
-        <Column field="Technology" header="Technology"></Column>
+        <Column field="Technology" header="Technology" class="max-lg:hidden"></Column>
         </DataTable>
 
     
