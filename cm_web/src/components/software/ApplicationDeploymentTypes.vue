@@ -20,10 +20,10 @@ const deploymentTypes = ref();
 
 </script>
 
-<template>
+<template> 
 <div v-if="deploymentTypes">
 
-    <DataTable :value="deploymentTypes" tableStyle="min-width: 50rem" >
+    <DataTable :value="deploymentTypes" tableStyle="min-width: 10rem" sortField="PriorityInLatestApp" :sortOrder="1">
 
     <Column field="LocalizedDisplayName" header="Name"></Column>
     <Column field="PriorityInLatestApp" header="Priority">
