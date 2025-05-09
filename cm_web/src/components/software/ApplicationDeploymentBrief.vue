@@ -22,7 +22,7 @@ const desiredConfigTypeLookup = ref(["_","Install 🟩","Uninstall 🟥"])
 <template>
 <div v-if="deployments">
 
-    <DataTable :value="deployments" tableStyle="min-width: 50rem" >
+    <DataTable :value="deployments" tableStyle="min-width: 10rem" >
 
     <Column field="DesiredConfigType" header="DesiredConfigType">
         <template #body="slotProps">
