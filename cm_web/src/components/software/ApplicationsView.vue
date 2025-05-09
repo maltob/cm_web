@@ -13,6 +13,8 @@ import InputText from 'primevue/inputtext';
 import InputIcon from 'primevue/inputicon';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
+import ApplicationDeploymentBrief from './ApplicationDeploymentBrief.vue';
+import ApplicationDeploymentTypes from './ApplicationDeploymentTypes.vue';
 
 
 
@@ -79,9 +81,14 @@ const expandedRows = ref({});
     <Column field="ObjectPath" header="Folder"  class="max-lg:hidden"></Column>
     <Column field="CI_UniqueID" header="UniqueID" class="max-lg:hidden"></Column>
     <template #expansion="slotProps">
-      <div><h3>Deployments of {{ slotProps.data.LocalizedDisplayName }}</h3>
 
+      <div><h3>Deployment Types of {{ slotProps.data.LocalizedDisplayName }}</h3>
+        <ApplicationDeploymentTypes :appModel="slotProps.data.ModelName"></ApplicationDeploymentTypes>
       </div>
+      <div><h3>Deployments of {{ slotProps.data.LocalizedDisplayName }}</h3>
+        <ApplicationDeploymentBrief :CI_ID=slotProps.data.CI_ID></ApplicationDeploymentBrief>
+      </div>
+
       
       </template>
 </DataTable>

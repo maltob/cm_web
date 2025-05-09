@@ -142,6 +142,11 @@ export const CMRestService = {
         }
     },
 
+    async getApplicationLatestDeploymentTypes(AppModelName: string, top=5000, skip = 0) {
+
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentType?$filter=AppModelName%20eq%20%27${AppModelName}%27%20and%20IsLatest%20eq%20true&$orderby=PriorityInLatestApp%20asc`)
+    },
+
     async refreshDeviceCollection(collectionID:string) {
         return ((await CMRestService.postCMRestEndpoint(`wmi/SMS_Collection('${collectionID}')/AdminService.RequestRefresh`,undefined)).status == 201)
     },
