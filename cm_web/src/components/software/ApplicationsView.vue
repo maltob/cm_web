@@ -13,8 +13,8 @@ import InputText from 'primevue/inputtext';
 import InputIcon from 'primevue/inputicon';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
-import ApplicationDeploymentBrief from './ApplicationDeploymentBrief.vue';
-import ApplicationDeploymentTypes from './ApplicationDeploymentTypes.vue';
+import ApplicationDeploymentBrief from './applications/ApplicationDeploymentBrief.vue';
+import ApplicationDeploymentTypes from './applications/ApplicationDeploymentTypes.vue';
 
 
 
