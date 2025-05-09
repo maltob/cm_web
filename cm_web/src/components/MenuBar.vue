@@ -52,15 +52,15 @@ const items = ref([
                 route: '/software/applications'
             },
             {
-                label: 'Packages',
+                label: 'Packages 🔧',
                 icon: 'pi pi-bolt'
             },
             {
-                label: 'Updates',
+                label: 'Updates  🔧',
                 icon: 'pi pi-wrench'
             },
             {
-                label: 'Task Sequences',
+                label: 'Task Sequences 🔧',
                 icon: 'pi pi-list'
             }]
     },
@@ -79,14 +79,14 @@ const items = ref([
                 route: '/reporting/system'
             },
             {
-                label: 'Custom Reports',
+                label: 'Custom Reports 🔧',
                 icon: 'pi pi-crown'
             }
             
         ]
     },
     {
-        label: 'About',
+        label: 'About 🔧',
         icon: 'pi pi-megaphone'
     }
 ]);
