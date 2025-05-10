@@ -15,6 +15,7 @@ import Deployments from './components/reporting/Deployments.vue';
 import DeploymentDetails from './components/reporting/deployments/DeploymentDetails.vue';
 import SUMDeploymentDetails from './components/reporting/deployments/SUMDeploymentDetails.vue';
 import ApplicationsView from './components/software/ApplicationsView.vue';
+import PackagesView from './components/software/PackagesView.vue';
 
 const routes = [
   { path: '/', component: DeviceCollectionsView, props: true  },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/reporting/deploymentsum/:assignmentID', component: SUMDeploymentDetails, name:'sumdeployment',props: true  },
   { path: '/reporting/deployment/:assignmentID/:appStatusType', component: DeploymentDetails, name:'deploymentWithStatusType',props: true  },
   { path: '/software/applications/:filter?', component: ApplicationsView, name:'applications' },
+  { path: '/software/packages/:filter?', component: PackagesView, name:'packages' },
 
 ]
 

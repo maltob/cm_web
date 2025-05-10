@@ -142,10 +142,25 @@ export const CMRestService = {
         }
     },
 
+    async getPackages(filter?: string, top=5000, skip = 0) {
+        if(filter) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_Package?$filter=contains(Name,%27${filter}%27)%20eq%20true&$skip=${skip}&$top=${top}&$orderby=Name`)
+        }else{
+            return await CMRestService.getCMRestEndpoint(`wmi/SMS_Package?$skip=${skip}&$top=${top}&$orderby=Name`)
+
+        }
+    },
+
     async getApplicationLatestDeploymentTypes(AppModelName: string, top=5000, skip = 0) {
 
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentType?$filter=AppModelName%20eq%20%27${AppModelName}%27%20and%20IsLatest%20eq%20true&$orderby=PriorityInLatestApp%20asc`)
     },
+
+    async getPackagePrograms(PackageID: string, top=5000, skip = 0) {
+
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_Program?$filter=PackageID%20eq%20%27${PackageID}%27`)
+    },
+
     // Getting the specific deployment type will load SDMPackageXML property
     async getDeploymentType(CI_ID: Number) {
 
