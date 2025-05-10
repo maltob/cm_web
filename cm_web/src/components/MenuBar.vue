@@ -52,8 +52,9 @@ const items = ref([
                 route: '/software/applications'
             },
             {
-                label: 'Packages 🔧',
-                icon: 'pi pi-bolt'
+                label: 'Packages',
+                icon: 'pi pi-bolt', 
+                route: '/software/packages'
             },
             {
                 label: 'Updates  🔧',
