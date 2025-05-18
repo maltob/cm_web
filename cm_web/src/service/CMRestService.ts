@@ -6,10 +6,13 @@ export const CMRestService = {
     async postCMRestEndpoint(url: string, body: string| undefined) {
         
         if(body != undefined) {
-           let sendObj = { method: "POST", body: body };
+           let sendObj = { method: "POST", body: body, headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }  };
            return await fetch('/AdminService/'+url, sendObj);
         }else{
-            let sendObj = { method: "POST" };
+            let sendObj = { method: "POST"}; 
             return await fetch('/AdminService/'+url, sendObj);
         }
         
@@ -102,6 +105,14 @@ export const CMRestService = {
         }   
     },
 
+    async getTaskSequenceMachineStatus( machineName: String) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_StatMsgWithInsStrings?$filter=Component%20eq%20%27Task%20Sequence%20Engine%27%20and%20MachineName%20eq%20%27${machineName}%27`)
+    },
+
+    async getTaskSequenceStatusMessages( top=500, skip = 0) {
+        return await CMRestService.getCMRestEndpoint(`wmi/SMS_StatMsgWithInsStrings?$filter=Component%20eq%20%27Task%20Sequence%20Engine%27&$skip=${skip}&$top=${top}&$orderby=Time desc`)
+    },
+
     async getAvailableComponentSummaries(availabilityState: Number = 0) {
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_ComponentSummarizer?$filter=AvailabilityState%20eq%20${availabilityState}`)
     },
@@ -166,11 +177,30 @@ export const CMRestService = {
 
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_DeploymentType(${CI_ID})`)
     },
+
+    async getCMPivotResult(OperationId: Number,deviceCollection: String = "SMSDM003") {
+
+        let resp= await CMRestService.getCMRestEndpoint(`v1.0/Collections('${deviceCollection}')/AdminService.CMPivotResult(OperationId=${OperationId})`)
+        while(resp.status == 404 ) {
+            await new Promise(resolve => setTimeout(resolve, 5_000));
+            resp = await CMRestService.getCMRestEndpoint(`v1.0/Collections('${deviceCollection}')/AdminService.CMPivotResult(OperationId=${OperationId})`)
+        }
+        return resp;
+    },
     // Getting the specific application will load SDMPackageXML property
     async getApplication(CI_ID: Number) {
 
         return await CMRestService.getCMRestEndpoint(`wmi/SMS_Application(${CI_ID})`)
     },
+
+    //API doesn't fall back to hardware inventory like GUI does?
+async runCMPivot(query: String, deviceCollection: String = "SMSDM003") {
+
+        return (await CMRestService.postCMRestEndpoint(`v1.0/Collections('${deviceCollection}')/AdminService.RunCMPivot`,'{"InputQuery":"'+query+'"}'))
+    },
+
+
+
 
     async refreshDeviceCollection(collectionID:string) {
         return ((await CMRestService.postCMRestEndpoint(`wmi/SMS_Collection('${collectionID}')/AdminService.RequestRefresh`,undefined)).status == 201)

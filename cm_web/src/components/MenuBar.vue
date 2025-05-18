@@ -80,8 +80,25 @@ const items = ref([
                 route: '/reporting/system'
             },
             {
-                label: 'Custom Reports 🔧',
-                icon: 'pi pi-crown'
+                label: 'Quick Reports',
+                icon: 'pi pi-angle-right',
+                route: '/reporting/quick',
+                    items: [ {
+                        label: 'Storage Report',
+                        icon: 'pi pi-database',
+                        route: '/reporting/quick/storage'
+                    },
+                    {
+                        label: 'Software Report',
+                        icon: 'pi pi-truck',
+                        route: '/reporting/quick/software'
+                    },
+                    {
+                        label: 'Task Sequence Steps Report',
+                        icon: 'pi pi-car',
+                        route: '/reporting/ts/messages'
+                    }
+                ]
             }
             
         ]

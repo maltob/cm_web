@@ -16,6 +16,8 @@ import DeploymentDetails from './components/reporting/deployments/DeploymentDeta
 import SUMDeploymentDetails from './components/reporting/deployments/SUMDeploymentDetails.vue';
 import ApplicationsView from './components/software/ApplicationsView.vue';
 import PackagesView from './components/software/PackagesView.vue';
+import QuickReports from './components/reporting/QuickReports.vue';
+import TaskSequenceStatusMessages from './components/reporting/quickreports/TaskSequenceStatusMessages.vue';
 
 const routes = [
   { path: '/', component: DeviceCollectionsView, props: true  },
@@ -23,12 +25,14 @@ const routes = [
   { path: '/devicecollection/:collectionID?', component: DeviceCollectionView, name:'devicecollection',props: true  },
   { path: '/device/:resourceID', component: DeviceView, name:'device',props: true  },
   { path: '/reporting/system', component: ConfigMgrSystemStatus, name:'systeminfo' },
+  { path: '/reporting/quick', component: QuickReports, name:'cmpivot' },
   { path: '/reporting/deployments', component: Deployments, name:'deployments' },
   { path: '/reporting/deployment/:assignmentID', component: DeploymentDetails, name:'deployment',props: true  },
   { path: '/reporting/deploymentsum/:assignmentID', component: SUMDeploymentDetails, name:'sumdeployment',props: true  },
   { path: '/reporting/deployment/:assignmentID/:appStatusType', component: DeploymentDetails, name:'deploymentWithStatusType',props: true  },
   { path: '/software/applications/:filter?', component: ApplicationsView, name:'applications' },
   { path: '/software/packages/:filter?', component: PackagesView, name:'packages' },
+  { path: '/reporting/ts/messages', component: TaskSequenceStatusMessages, name:'tsMessages' },
 
 ]
 
