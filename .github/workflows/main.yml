@@ -22,13 +22,9 @@ jobs:
 
       - name: Run install
         uses: borales/actions-yarn@v4
+        working-directory: cm_web
         with:
           cmd: build # will run `yarn install` command
-        working-directory: cm_web
-
-      - name: Install dependencies
-        run: pnpm build
-        working-directory: cm_web
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v5.0.0
