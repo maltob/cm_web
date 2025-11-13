@@ -22,7 +22,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --dangerously-allow-all-builds
         working-directory: cm_web
 
       - name: Install dependencies
